@@ -1,1 +1,70 @@
-KARAB
+#include<iostream>
+using namespace std;
+#include<unordered_map>
+#include<math.h>
+#include<algorithm>
+
+int solve(string s , unordered_map<char , int> mp){
+       double target_hash = 0;
+int d = 10;
+
+  for(int i=0; i<s.length(); i++){
+      int val = mp[s[i]];
+
+      target_hash+=val*pow(d , s.length()-i-1);
+
+  }
+
+  
+  return target_hash;
+}
+
+
+int main(){
+  string txt;
+  cin>>txt;
+
+  string pattern;
+  cin>>pattern;
+
+  int m = pattern.length();
+
+  int d = 10;
+
+  unordered_map<char , int> mp;
+
+
+  int val = 1;
+
+  for(int i=97; i<=122; i++){
+      mp[char(i)] = val;
+      val++;
+  }
+
+  double target_hash = 0;
+
+
+  for(int i=0; i<m; i++){
+      int val = mp[pattern[i]];
+
+      target_hash+=val*pow(d , m-i-1);
+
+  }
+
+  
+
+
+  for(int i=0; i<txt.length()-m; i++){
+     int find_new = solve(txt.substr(i , m) , mp);
+
+     if(find_new==target_hash){
+        cout<<i;
+       
+     }
+  }
+    
+  
+
+
+  return 0;
+}
