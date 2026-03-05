@@ -1,0 +1,66 @@
+#include<iostream>
+using namespace std;
+#include<vector>
+#include<queue>
+#include<unordered_map>
+#include<algorithm>
+
+void find_goal_freq(string day , unordered_map<char , int> &mp){
+   
+  int n = day.length();
+  for(int i=0; i<n; i++){
+       mp[day[i]]++;
+  }
+}
+
+int main(){
+  int t;
+  cin>>t;
+
+  vector<string> ans;
+
+  while(t--){
+     string s;
+     cin>>s;
+
+     ans.push_back(s);
+  }
+
+
+  unordered_map<char , int> mp;
+
+  for(int i=0; i<ans.size(); i++){
+      string day = ans[i];
+
+      find_goal_freq(day , mp);
+
+
+
+  }
+
+priority_queue<pair<int , char>> pq;
+  for(auto ele : mp){
+        pq.push({ele.second , ele.first});
+  }
+
+string s = "";
+
+s+=pq.top().second;
+int freq = pq.top().first;
+pq.pop();
+ 
+  while(!pq.empty() && freq==pq.top().first){
+       s+=pq.top().second;
+       pq.pop();
+
+
+  }
+  reverse(s.begin() , s.end());
+
+  cout<<s<<endl;
+
+
+  return 0;
+}
+
+
