@@ -1,1 +1,38 @@
+#include<iostream>
+using namespace std;
 
+int BIT[100];
+
+// update function
+void update(int i, int val, int n){
+    while(i <= n){
+        BIT[i] += val;
+        i += i & (-i);
+    }
+}
+
+// get prefix sum
+int getSum(int i){
+    int sum = 0;
+    while(i > 0){
+        sum += BIT[i];
+        i -= i & (-i);
+    }
+    return sum;
+}
+
+int main(){
+    
+    int arr[] = {0 , 1 ,2 , 3 , 4 , 5};
+    int n = sizeof(arr)/sizeof(arr[0]) - 1;
+
+    // build BIT
+    for(int i = 1; i <= n; i++){
+        update(i, arr[i], n);
+    }
+
+    // print prefix sum
+    cout << getSum(5);  // sum of first 5 elements
+
+    return 0;
+}
